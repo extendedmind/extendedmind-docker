@@ -1,5 +1,7 @@
 FROM openjdk:8u111-jdk-alpine
 
+ENV GCE_VERSION 136.0.0
+
 ARG BUILD_DATE
 ARG VCS_REF
 
@@ -19,7 +21,7 @@ RUN set -x\
  && apk update\
  && apk --no-cache add --virtual .build-deps\
   ca-certificates\
-  unzip\
+  tar\
   wget\
  && apk --no-cache add\
   bash\
@@ -30,9 +32,9 @@ RUN set -x\
   py2-openssl\
   python2\
   curl\
- && wget https://dl.google.com/dl/cloudsdk/channels/rapid/google-cloud-sdk.zip\
- && unzip google-cloud-sdk.zip\
- && rm google-cloud-sdk.zip\
+ && wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-$GCE_VERSION-linux-x86_64.tar.gz\
+ && tar -xzf google-cloud-sdk-$GCE_VERSION-linux-x86_64.tar.gz\
+ && rm google-cloud-sdk-$GCE_VERSION-linux-x86_64.tar.gz\
  && google-cloud-sdk/install.sh\
   --usage-reporting=true\
   --path-update=true\
