@@ -1,4 +1,4 @@
-FROM traefik:v1.1.2-alpine
+FROM traefik:v1.1.2
 EXPOSE 80
 EXPOSE 8080
 EXPOSE 443
