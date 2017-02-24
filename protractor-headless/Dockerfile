@@ -4,7 +4,7 @@ MAINTAINER timo.tiuraniemi@iki.fi
 WORKDIR /tmp
 COPY webdriver-versions.js ./
 ENV CHROME_PACKAGE="google-chrome-stable_55.0.2883.75-1_amd64.deb" NODE_PATH=/usr/local/lib/node_modules
-RUN npm install -g protractor@4.0.14 mocha@3.2.0 jasmine@2.5.3 minimist@1.2.0 && \
+RUN npm install -g protractor@4.0.14 mocha@3.2.0 jasmine@2.5.3 minimist@1.2.0 q@1.4.1 request@2.79.0 jsdom@9.11.0 && \
     node ./webdriver-versions.js --chromedriver 2.27 && \
     webdriver-manager update && \
     apt-get update && \
