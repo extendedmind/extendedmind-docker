@@ -12,6 +12,7 @@ RUN apt-get update && apt-get install -y \
       libpng12-dev \
       libldap2-dev \
       zip \
+      gettext \
  && rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr --with-png-dir=/usr --with-jpeg-dir=/usr \
