@@ -1,4 +1,4 @@
-FROM openjdk:8u111-jdk-alpine
+FROM openjdk:8u121-jdk-alpine
 MAINTAINER timo.tiuraniemi@iki.fi
 ENV USER java
 
