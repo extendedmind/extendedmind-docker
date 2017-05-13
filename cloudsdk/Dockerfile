@@ -30,6 +30,6 @@ ENV PATH /app/kubectl:/app/google-cloud-sdk/bin:$PATH
 RUN gcloud config set core/disable_usage_reporting true
 RUN gcloud config set component_manager/disable_update_check true
 RUN gcloud --version
-RUN kubectl version
+RUN kubectl version --client
 
 VOLUME ["/app/.config"]
