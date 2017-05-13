@@ -1,9 +1,30 @@
-# TODO: When Google official uses this, change the owner!
-# https://hub.docker.com/r/google/cloud-sdk/
-FROM salrashid123/cloud-sdk-docker:154.0.0
+FROM quay.io/extendedmind/openjdk:openjdk-8u121
 MAINTAINER timo.tiuraniemi@iki.fi
-RUN apk --no-cache add tar rsync
 
-# Also add kubectl to the mix
-ADD https://storage.googleapis.com/kubernetes-release/release/v1.6.3/bin/linux/amd64/kubectl /usr/local/bin/kubectl
-RUN chmod +x /usr/local/bin/kubectl
+# Install more packages with root
+USER root
+
+# Taken from https://hub.docker.com/r/salrashid123/cloud-sdk-docker/~/dockerfile/
+RUN apk --no-cache add python rsync
+ENV HOME /app
+
+ARG CLOUD_SDK_VERSION=155.0.0
+ARG SHA256SUM=4b64fba9d98b9e48cc7a37ed3b321e50f92e87f9c2b358d183f966dae05216a2
+
+RUN curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz
+RUN echo "${SHA256SUM}  google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz" > google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz.sha256
+RUN sha256sum -c google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz.sha256
+RUN tar xzf google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz
+
+RUN chown -hR java:java google-cloud-sdk
+RUN rm google-cloud-sdk-${CLOUD_SDK_VERSION}-*
+
+# Back to original user "java"
+USER java
+
+ENV PATH /app/google-cloud-sdk/bin:$PATH
+RUN gcloud config set core/disable_usage_reporting true
+RUN gcloud config set component_manager/disable_update_check true
+RUN gcloud --version
+
+VOLUME ["/app/.config"]
