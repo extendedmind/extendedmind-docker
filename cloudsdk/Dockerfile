@@ -8,12 +8,6 @@ USER root
 RUN apk --no-cache add python rsync
 ENV HOME /app
 
-# Also add kubectl to the mix
-RUN mkdir /app/kubectl
-ADD https://storage.googleapis.com/kubernetes-release/release/v1.6.3/bin/linux/amd64/kubectl /app/kubectl/kubectl
-RUN chown -R java:java /app/kubectl
-RUN chmod a+x /app/kubectl/kubectl
-
 # Back to original user "java"
 USER java
 
@@ -26,10 +20,9 @@ RUN sha256sum -c google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz.sha25
 RUN tar xzf google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz
 RUN rm google-cloud-sdk-${CLOUD_SDK_VERSION}-*
 
-ENV PATH /app/kubectl:/app/google-cloud-sdk/bin:$PATH
+ENV PATH /app/google-cloud-sdk/bin:$PATH
 RUN gcloud config set core/disable_usage_reporting true
 RUN gcloud config set component_manager/disable_update_check true
 RUN gcloud --version
-RUN kubectl version --client
 
 VOLUME ["/app/.config"]
