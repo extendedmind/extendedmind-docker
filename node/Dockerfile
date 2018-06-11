@@ -5,7 +5,8 @@ MAINTAINER timo.tiuraniemi@iki.fi
 RUN apk add --no-cache gd-dev=2.2.5-r0
 RUN apk add --no-cache make python g++ 
 ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
-ENV NODE_PATH /home/node/.npm-global/node_modules
+ENV NODE_PATH /home/node/.npm-global
+ENV PATH=$PATH:/home/node/.npm-global/bin
 
 # Switch to user "node"
 ENV USER node
