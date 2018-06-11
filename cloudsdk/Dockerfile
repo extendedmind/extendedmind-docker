@@ -1,4 +1,4 @@
-FROM quay.io/extendedmind/openjdk:openjdk-8u121
+FROM quay.io/extendedmind/openjdk:openjdk-8u151-4
 MAINTAINER timo.tiuraniemi@iki.fi
 
 # Install more packages with root
@@ -11,7 +11,7 @@ ENV HOME /app
 # Back to original user "java"
 USER java
 
-ARG CLOUD_SDK_VERSION=155.0.0
+ARG CLOUD_SDK_VERSION=204.0.0
 ARG SHA256SUM=4b64fba9d98b9e48cc7a37ed3b321e50f92e87f9c2b358d183f966dae05216a2
 
 RUN curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz
