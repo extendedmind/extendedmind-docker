@@ -12,7 +12,7 @@ ENV HOME /app
 USER java
 
 ARG CLOUD_SDK_VERSION=204.0.0
-ARG SHA256SUM=4b64fba9d98b9e48cc7a37ed3b321e50f92e87f9c2b358d183f966dae05216a2
+ARG SHA256SUM=276984a44a2a9dc1af5d3c859a1295897fd8cfc911738874daf007ab46143da5
 
 RUN curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz
 RUN echo "${SHA256SUM}  google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz" > google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz.sha256
